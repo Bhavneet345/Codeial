@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/css/user.css">
+<img src="<%= user.avatar %>" alt="<%= user.name %>" width="100">
+<h1>
+   Codeial / Profile
+</h1>
+      
+<% if(user.id == profile_user.id){ %>
+   <!-- if user matches the show the form -->
+   <form action="/users/update/<%= user.id %>" method="POST" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
+      <input type="email" name="email" placeholder="Your email" value="<%= profile_user.email %>" required>
+      <input type="file" name="avatar" placeholder="Profile Picture">
+      <input type="submit" value="Update">
+   </form>
+<% } else{ %>
+
+   <!-- else show only the profile info  -->
+   <p><%= profile_user.name %></p>
+   <p><%= profile_user.email %></p>
+   <p>
+      <% if(isFriend){ %>
+         <a href="/friends/addRemoveFriend/?id=<%= profile_user.id %>" class="toggle-friend-button">
+            <%= 'remove' %>
+         </a>
+      <% } else { %>
+         <a href="/friends/addRemoveFriend/?id=<%= profile_user.id %>" class="toggle-friend-button">
+            <%= 'add' %>
+         </a>
+      <% } %>
+   </p>
+<% } %>
+
+<script src="/js/toggle_friend.js"></script>
+<script>
+   $('.toggle-friend-button').each(function(){
+      let self = this;
+      const togglefriend = new toggleFriend(self);
+   });
+</script>
